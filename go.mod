@@ -1,4 +1,4 @@
-module dummy
+module github.com/splace/scalingSuffix
 
 go 1.23.0
 
