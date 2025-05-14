@@ -1,3 +1,7 @@
+# print scaled with SI suffix 
+
+Overview/docs: [![GoDoc](https://godoc.org/github.com/splace/scalingSuffix?status.svg)](https://godoc.org/github.com/splace/scalingSuffix)
+
 // scalingSuffix enables printing of scaled numbers and appropriate suffixes.
 // this is done by wrapping a number in a fmt.Formatter where the scaling can be chosen directly using the formatters verb or, more generally, automatically determined for the value of the number.
 // the scaling verb used is the same as the suffix and is an SI standard suffix.
