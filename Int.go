@@ -29,6 +29,6 @@ func NewUint[N constraints.Unsigned](v N) Uint[N]{
 }
 
 func (i Uint[N]) String()string{
-	return SepEvery3(fmt.Sprint(i.Value))
+	return SpaceSep3(fmt.Sprint(i.Value))
 }
 

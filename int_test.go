@@ -10,14 +10,14 @@ func ExampleCutSuffixN(){
 	// 123 45
 }
 
-func ExampleSepEvery3(){
-	fmt.Println(SepEvery3("12"))
-	fmt.Println(SepEvery3("1234"))
-	fmt.Println(SepEvery3("123456"))
-	fmt.Println(SepEvery3("12345678"))
-	fmt.Println(SepEvery3("1234567890"))
-	fmt.Println(SepEvery3("1234567890123456789"))
-	fmt.Println(SepEvery3("Hello 世界"))
+func ExampleSpaceSep3(){
+	fmt.Println(SpaceSep3("12"))
+	fmt.Println(SpaceSep3("1234"))
+	fmt.Println(SpaceSep3("123456"))
+	fmt.Println(SpaceSep3("12345678"))
+	fmt.Println(SpaceSep3("1234567890"))
+	fmt.Println(SpaceSep3("1234567890123456789"))
+	fmt.Println(SpaceSep3("Hello 世界"))
 	// Output:
 	// 12
 	// 1 234
