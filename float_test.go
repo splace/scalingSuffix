@@ -45,23 +45,18 @@ func ExampleFloat_i18n(){
 	// Output:
 	// 1 123.123456
 	// "1 123.123456"	
-
 }
 
-func I18nFmt(country [2]byte) func(s string) string{
-	switch country{
-	case [2]byte([]byte("en"[:2])): 
-		return CommaSep3
-	default:
-		return SpaceSep3
-	}
-}
-
-func I18n(i any) any{
+func Sep() string{
 	langenv, exists := os.LookupEnv("LANG")
 	if exists{
-		return I18nFmt([2]byte([]byte(langenv[:2])))
+		switch langenv[:2]{
+		case "en": 
+			return ","
+		default:
+			return " "
+		}
 	}
-	return I18nFmt([2]byte([]byte("en")))
+	return "_"
 }
 

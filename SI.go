@@ -47,15 +47,3 @@ func (f SI[N]) Format(fs fmt.State, v rune){
 	fmt.Fprint(fs,s)	
 }
 
-
-const sufficesSI = "qryzafpnµm kMGTPEZYRQ"
-
-type SISuffix struct{
-	Suffix
-}
-
-func (s SISuffix) String() (_ string){
-	if s.Suffix==0{return}
-	return string(sufficesSI[s.Suffix+11])
-}
-
