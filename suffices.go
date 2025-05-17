@@ -1,6 +1,8 @@
 package scalingSuffix
 
 import "math"
+import "golang.org/x/exp/constraints"
+
 
 // suffix stores the number of scaling factors. (-ve scale down)
 type Suffix int8
@@ -27,9 +29,10 @@ func (s SISuffix) String() (_ string){
 }
 
 
-func NewSISuffix(c uint8) (_ SISuffix){
+func NewSISuffix[I constraints.Integer](c I) (_ SISuffix){
+	ci:=uint8(c)
 	for i :=range len(sufficesSI){
-		if sufficesSI[i]==c{
+		if sufficesSI[i]==ci{
 			return SISuffix{Suffix(i-11)}
 		}	
 	}

@@ -3,10 +3,10 @@ package scalingSuffix
 import "fmt"
 
 func ExampleNewSISuffix(){
-	fmt.Printf("%q\n",NewSISuffix(uint8('1')))
-	fmt.Printf("%q\n",NewSISuffix(uint8(' ')))
-	fmt.Printf("%q\n",NewSISuffix(uint8('k')))
-	fmt.Printf("%q\n",NewSISuffix(uint8('P')))
+	fmt.Printf("%q\n",NewSISuffix('1'))
+	fmt.Printf("%q\n",NewSISuffix(' '))
+	fmt.Printf("%q\n",NewSISuffix('k'))
+	fmt.Printf("%q\n",NewSISuffix('P'))
 	// Output:
 	// ""
 	// "" 
