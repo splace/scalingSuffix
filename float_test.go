@@ -47,16 +47,16 @@ func ExampleFloat_i18n(){
 	// "1 123.123456"	
 }
 
-func Sep() string{
+func I18nReplacer(countryCode [2]byte) strings.Replacer{
 	langenv, exists := os.LookupEnv("LANG")
 	if exists{
 		switch langenv[:2]{
 		case "en": 
-			return ","
+			return strings.NewReplacer("_",",")
 		default:
-			return " "
+			return strings.NewReplacer("_",".",".",",")
 		}
 	}
-	return "_"
+	return strings.NewReplacer("_"," ")
 }
 

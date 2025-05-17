@@ -4,26 +4,10 @@ import "strings"
 import "slices"
 import "unicode/utf8"
 
-func SpaceSep3(s string)string{
-	return SepEvery(3,s," ")
-}
 
-func CommaSep3(s string)string{
-	return SepEvery(3,s,",")
-}
-
-func NarrowSpaceSep3(s string)string{
-	return SepEvery(3,s," ")
-}
-
-func UnderscoreSep3(s string)string{
+func NumSep(s string)string{
 	return SepEvery(3,s,"_")
 }
-
-func DotSep3(s string)string{
-	return SepEvery(3,s,".")
-}
-
 
 // SepEvery adds a string between every n runes starting from the end.
 func SepEvery(n uint8,s,sep string)string{
