@@ -248,7 +248,7 @@ func ExampleSI_fixed_suffix(){
 	fmt.Printf("%+MB\n",NewSI(1000000000))
 	// Output:
 	// 1000MB
-	// 1 000MB
+	// 1_000MB
 }
 
 // use a numbers calculated scaling as forced scaling on others
@@ -258,9 +258,9 @@ func ExampleSI_suffix_reuse(){
 	fmt.Printf("%+"+r+"B\n",NewSI(1234000))
 	fmt.Printf("%+"+r+"B\n",NewSI(1234000000))
 	// Output:
-	// 12 340kB
-	// 1 234kB
-	// 1 234 000kB
+	// 12_340kB
+	// 1_234kB
+	// 1_234_000kB
 }
 
 
@@ -270,8 +270,8 @@ func ExampleSI_suffix_reuse_linedup(){
 	fmt.Printf("\"%+12"+r+"B\"\n",NewSI(1234000))
 	fmt.Printf("\"%+12"+r+"B\"\n",NewSI(1234000000))
 	// Output:
-	// "      12 340kB"
-	// "       1 234kB"
-	// "   1 234 000kB"
+	// "      12_340kB"
+	// "       1_234kB"
+	// "   1_234_000kB"
 }
 

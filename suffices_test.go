@@ -21,7 +21,7 @@ func ExampleSISuffix_Scan(){
 	fmt.Sscanf(v,"%d%v",&d,&sis) // scans d as uint8 so no dp and only up to 255 
 	fmt.Printf("%d%s == %+k\n",d,sis,NewSI(float64(d)/sis.Suffix.Scale(sSI)))
 	// Output:
-	// 100G == 100 000 000k
+	// 100G == 100_000_000k
 }
 
 

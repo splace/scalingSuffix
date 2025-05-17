@@ -2,6 +2,7 @@ package scalingSuffix
 
 import "fmt"
 import "os"
+import "strings"
 
 func ExampleFloat(){
 	fmt.Println(NewFloat(1.1))
@@ -21,42 +22,48 @@ func ExampleFloat(){
 	//-1.2
 	//123.4
 	//-123.4
-	//1 234.5
-	//-1 234.5
-	//12 345.6
-	//-12 345.6
-	//1 234 567.8
-	//-1 234 567.8
-	//123 456 789.01
-	//-123 456 789.01
+	//1_234.5
+	//-1_234.5
+	//12_345.6
+	//-12_345.6
+	//1_234_567.8
+	//-1_234_567.8
+	//123_456_789.01
+	//-123_456_789.01
 }
 
 func ExampleFloat_fmt(){
 	fmt.Printf("%v\n",NewFloat(1123.123456))
 	fmt.Printf("%q\n",NewFloat(1123.123456))
 	// Output:
-	// 1 123.123456
-	// "1 123.123456"
+	// 1_123.123456
+	// "1_123.123456"
 }
 
 func ExampleFloat_i18n(){
 	fmt.Printf("%v\n",NewFloat(1123.123456))
 	fmt.Printf("%q\n",NewFloat(1123.123456))
 	// Output:
-	// 1 123.123456
-	// "1 123.123456"	
+	// 1_123.123456
+	// "1_123.123456"	
 }
 
-func I18nReplacer(countryCode [2]byte) strings.Replacer{
+
+func Replacer(countryCode [2]byte) *strings.Replacer{
 	langenv, exists := os.LookupEnv("LANG")
 	if exists{
-		switch langenv[:2]{
-		case "en": 
-			return strings.NewReplacer("_",",")
-		default:
-			return strings.NewReplacer("_",".",".",",")
-		}
+		return I18nReplacer([2]byte([]byte(langenv[:2])))
 	}
 	return strings.NewReplacer("_"," ")
+}
+
+
+func I18nReplacer(countryCode [2]byte) *strings.Replacer{
+	switch countryCode{
+	case [2]byte([]byte("en")): 
+		return strings.NewReplacer("_",",")
+	default:
+		return strings.NewReplacer("_",".",".",",")
+	}
 }
 

@@ -19,11 +19,11 @@ func NewFloat[N constraints.Float](v N) Float[N]{
 func (f Float[N]) String()string{
 	if f.Value<0 {
 		ss:=strings.SplitN(strconv.FormatFloat(float64(-f.Value), 'f', -1, 64),".",2)
-		ss[0]=SpaceSep3(ss[0])
+		ss[0]=NumSep(ss[0])
 		return "-"+strings.Join(ss,".")
 	}
 	ss:=strings.SplitN(strconv.FormatFloat(float64(f.Value), 'f', -1, 64),".",2)
-	ss[0]=SpaceSep3(ss[0])
+	ss[0]=NumSep(ss[0])
 	return strings.Join(ss,".")
 }
 

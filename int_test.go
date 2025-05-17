@@ -10,22 +10,22 @@ func ExampleCutSuffixN(){
 	// 123 45
 }
 
-func ExampleSpaceSep3(){
-	fmt.Println(SpaceSep3("12"))
-	fmt.Println(SpaceSep3("1234"))
-	fmt.Println(SpaceSep3("123456"))
-	fmt.Println(SpaceSep3("12345678"))
-	fmt.Println(SpaceSep3("1234567890"))
-	fmt.Println(SpaceSep3("1234567890123456789"))
-	fmt.Println(SpaceSep3("Hello 世界"))
+func ExampleNumSep(){
+	fmt.Println(NumSep("12"))
+	fmt.Println(NumSep("1234"))
+	fmt.Println(NumSep("123456"))
+	fmt.Println(NumSep("12345678"))
+	fmt.Println(NumSep("1234567890"))
+	fmt.Println(NumSep("1234567890123456789"))
+	fmt.Println(NumSep("Hello 世界"))
 	// Output:
 	// 12
-	// 1 234
-	// 123 456
-	// 12 345 678
-	// 1 234 567 890
-	// 1 234 567 890 123 456 789
-	// He llo  世界
+	// 1_234
+	// 123_456
+	// 12_345_678
+	// 1_234_567_890
+	// 1_234_567_890_123_456_789
+	// He_llo_ 世界
 }
 
 func ExampleInt(){
@@ -46,13 +46,13 @@ func ExampleInt(){
 	// -1
 	// 123
 	// -123
-	// 1 230
-	// -1 230
-	// 12 345
-	// -12 345
-	// 1 234 567
-	// -1 234 567
-	// 123 456 789
-	// -123 456 789
+	// 1_230
+	// -1_230
+	// 12_345
+	// -12_345
+	// 1_234_567
+	// -1_234_567
+	// 123_456_789
+	// -123_456_789
 }
 
