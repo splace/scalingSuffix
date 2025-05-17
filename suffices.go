@@ -12,7 +12,7 @@ func SuffixFor(v,sf float64) Suffix{
 
 // calculate the suffices scaling from the scaling factor base
 func (s Suffix) Scale(sf float64) float64{
-	return math.Pow(sf,-float64(s)) // -ve exponent to Pow removes a divide.
+	return math.Pow(sf,-float64(s)) // optimisation: using a -ve exponent to Pow converts a divide to a multiply.
 }
 
 const sufficesSI = "qryzafpnµm kMGTPEZYRQ"
