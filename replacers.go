@@ -1,3 +1,7 @@
+package scalingSuffix
+
+import "os"
+import "strings"
 
 var Default =strings.NewReplacer("_",",")
 var English =strings.NewReplacer("_",",")
