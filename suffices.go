@@ -28,6 +28,9 @@ func (s SISuffix) String() (_ string){
 	return string(sufficesSI[s.Suffix+11])
 }
 
+func (s *SISuffix) Scan(state fmt.ScanState,verb rune) error{
+	*s=NewSISuffix(state.ReadRune)
+}
 
 func NewSISuffix[I constraints.Integer](c I) (_ SISuffix){
 	ci:=uint8(c)
