@@ -14,5 +14,15 @@ func ExampleNewSISuffix(){
 	// "P"
 }
 
+func ExampleSISuffix_Scan(){
+	var s SISuffix
+	var d uint8
+	fmt.Sscanf("100G","%d%v",&d,&s)
+	fmt.Printf("%d%s\n",d,s)
+	// Output:
+	// 100G
+
+}
+
 
 

@@ -1,5 +1,6 @@
 package scalingSuffix
 
+import "fmt"
 import "math"
 import "golang.org/x/exp/constraints"
 
@@ -28,8 +29,16 @@ func (s SISuffix) String() (_ string){
 	return string(sufficesSI[s.Suffix+11])
 }
 
-func (s *SISuffix) Scan(state fmt.ScanState,verb rune) error{
-	*s=NewSISuffix(state.ReadRune)
+func (s *SISuffix) Scan(state fmt.ScanState,verb rune) (err error){
+	ss,_,err:=state.ReadRune()
+	if err!=nil{
+		return
+	}
+	*s=NewSISuffix(ss)
+	if s.Suffix==0{
+		err=fmt.Errorf("Not SI")
+	}
+	return
 }
 
 func NewSISuffix[I constraints.Integer](c I) (_ SISuffix){
