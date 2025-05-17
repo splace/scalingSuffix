@@ -15,13 +15,13 @@ func ExampleNewSISuffix(){
 }
 
 func ExampleSISuffix_Scan(){
-	var s SISuffix
+	var sis SISuffix
 	var d uint8
-	fmt.Sscanf("100G","%d%v",&d,&s)
-	fmt.Printf("%d%s\n",d,s)
+	v :="100G"
+	fmt.Sscanf(v,"%d%v",&d,&sis) // scans d as uint8 so no dp and only up to 255 
+	fmt.Printf("%d%s == %+k\n",d,sis,NewSI(float64(d)/sis.Suffix.Scale(sSI)))
 	// Output:
-	// 100G
-
+	// 100G == 100 000 000k
 }
 
 
