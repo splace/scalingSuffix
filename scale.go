@@ -2,7 +2,6 @@ package scalingSuffix
 
 import "strings"
 import "fmt"
-import "maps"
 
 // add sep to digits above dp
 func Thousands(s string) string{
