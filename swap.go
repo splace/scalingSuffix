@@ -3,7 +3,7 @@ package scalingSuffix
 import "maps"
 import "iter"
 
-// Pivot returns a new map, made from the provided maps key/values swapped (values so need to be comparable) 
+// Pivot returns a new map, made from the provided maps key/values swapped (values thus need to be comparable) 
 func Pivot[Map ~map[K]V, K, V comparable](m Map) map[V]K{
 	return maps.Collect(swap[K,V](maps.All(m)))
 }

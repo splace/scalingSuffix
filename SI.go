@@ -13,13 +13,13 @@ func NewSI[N constraints.Float | constraints.Integer](v N) SI[N]{
 	return SI[N]{v}
 }
 
-// returns number with the maximum number of 1000's removed and the suffix added.
-// note: doesn't use small value SI suffix only thousands.
+// returns the value with the maximum number of 1000's removed and replaced with the appropriate suffix added.
+// note: doesn't use small, less than 1000, value SI suffixes.
 func (i SI[N]) String()string{
 	return Scale(Thousands(fmt.Sprint(i.value)))
 }
 
-// scans from any SI suffix not just thousands.
+// scans from any SI suffixed number, not just SI thousands.
 func (s *SI[N]) Scan(state fmt.ScanState,verb rune) (err error){
 	bs,err:=io.ReadAll(NumberLimitedReader(state))
 	if err!=nil{

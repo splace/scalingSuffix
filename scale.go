@@ -3,7 +3,7 @@ package scalingSuffix
 import "strings"
 import "fmt"
 
-// add sep to digits above dp
+// apply [NumSep] to digits above dp
 func Thousands(s string) string{
 	b,a,f:=strings.Cut(s,".")
 	b=NumSep(b)

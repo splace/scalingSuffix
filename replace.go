@@ -4,16 +4,22 @@ import "os"
 
 type byteReplace [2]byte
 
+// standard byte replacment(s)
 var (
 	Default = byteReplace{'_',' '}
 	English = byteReplace{'_',','}
 	NonEnglish = []byteReplace{{'.',','},{'_','.'}}
+)
+
+// standard string modifiers
+var (
 	ToEnglish=ReplaceString(English)
 	FromEnglish=ReplaceString(reverse(English)...)
 	ToNonEnglish = ReplaceString(NonEnglish...)
 	FromNonEnglish = ReplaceString(reverse(NonEnglish...)...)
 )
 
+// multi-replaces bytes in a string, ASCII only.
 func ReplaceString(bps ...byteReplace) func(string)string{
 	return func(s string)string{
 		bs:=[]byte(s)
@@ -22,7 +28,7 @@ func ReplaceString(bps ...byteReplace) func(string)string{
 	}
 }
 
-// inplace byte byteReplace
+// inplace byte multi-replacement, ordered.
 func replace(ss []byte,bps ...byteReplace){
 	for _,bp:=range bps{
 		for i,s:=range ss{
