@@ -13,13 +13,33 @@ func NewSIUnits[N constraints.Float | constraints.Integer](v N, f fmt.Stringer) 
 	return SIUnits[N]{SI[N]{v},f}
 }
 
-//type Dimension uint8
+var (
+	Energy = Derived{1,2,-2}
+	Force = Derived{1,1,-2}
+	Power = Derived{1,2,-3}
+	Pressure = Derived{1,-1,-2}
+	Frequency =	Derived{0,0,-1}
+)
 
-//const (
-//	Length Dimension iota
-//	Masss
-//	Time
-//)
+
+type Derived Dims
+
+func (d Derived) String()string{
+	switch d{
+	case Energy:
+		return "J"
+	case Force:
+		return "N"
+	case Power:
+		return "W"
+	case Pressure:
+		return "Pa"
+	case Frequency:
+		return "Hz"
+	default:
+		return Dims(d).String()
+	}	
+}
 
 func DimString(d int8, s string)(_ string){
 	switch d{
@@ -47,6 +67,8 @@ func (d Dims) String()string{
 		".",
 	)
 }
+
+
 
 
 //type BaseUnit uint8
