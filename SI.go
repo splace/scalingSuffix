@@ -6,8 +6,6 @@ import "io"
 import "bytes"
 import "slices"
 
-
-
 // SI's are fmt.Stringer and fmt.Scanner where the value is scaled using powers of 10, with metric prefixes added.
 type SI[N constraints.Float | constraints.Integer] struct{value N}
 

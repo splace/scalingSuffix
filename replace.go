@@ -2,19 +2,19 @@ package scalingSuffix
 
 import "os"
 
-type replacer [2]byte
+type byteReplace [2]byte
 
 var (
-	Default = replacer{'_',' '}
-	English = replacer{'_',','}
-	NonEnglish = []replacer{{'.',','},{'_','.'}}
+	Default = byteReplace{'_',' '}
+	English = byteReplace{'_',','}
+	NonEnglish = []byteReplace{{'.',','},{'_','.'}}
 	ToEnglish=ReplaceString(English)
 	FromEnglish=ReplaceString(reverse(English)...)
 	ToNonEnglish = ReplaceString(NonEnglish...)
 	FromNonEnglish = ReplaceString(reverse(NonEnglish...)...)
 )
 
-func ReplaceString(bps ...replacer) func(string)string{
+func ReplaceString(bps ...byteReplace) func(string)string{
 	return func(s string)string{
 		bs:=[]byte(s)
 		replace(bs,bps...)
@@ -22,8 +22,8 @@ func ReplaceString(bps ...replacer) func(string)string{
 	}
 }
 
-// inplace byte replacer
-func replace(ss []byte,bps ...replacer){
+// inplace byte byteReplace
+func replace(ss []byte,bps ...byteReplace){
 	for _,bp:=range bps{
 		for i,s:=range ss{
 			if s==bp[0]{
@@ -34,27 +34,28 @@ func replace(ss []byte,bps ...replacer){
 	return
 }
 
-func reverse(bps ...replacer)(r []replacer){
-	r=make([]replacer,len(bps))
+// switch replace sense and order
+func reverse(bps ...byteReplace)(r []byteReplace){
+	r=make([]byteReplace,len(bps))
 	for i,bp:=range bps{
-		r[i]=replacer{bp[1],bp[0]}
+		r[len(bps)-i-1]=byteReplace{bp[1],bp[0]}
 	}
 	return
 }
 
-// determines what replacer is needed for the system language
-func ToSystemReplacer(countryCode replacer) func(string)string{
+// determines what byteReplace is needed for the system language
+func ToSystembyteReplace(countryCode byteReplace) func(string)string{
 	langenv, exists := os.LookupEnv("LANG")
 	if exists{
-		return I18nReplacer([2]byte([]byte(langenv[:2])))
+		return I18nbyteReplace([2]byte([]byte(langenv[:2])))
 	}
 	return ReplaceString(Default)
 }
 
-// determines what replacer(s) needed for a language code
-func I18nReplacer(countryCode [2]byte) func(string)string{
+// determines what byteReplace(s) needed for a language code
+func I18nbyteReplace(countryCode [2]byte) func(string)string{
 	switch countryCode{
-	case replacer([]byte("en")): 
+	case byteReplace([]byte("en")): 
 		return ToEnglish
 	default:
 		return ToNonEnglish

@@ -15,6 +15,16 @@ func ExampleSepEvery(){
 	// 1
 }
 
+func ExampleNumberUnderscoreSep(){
+	fmt.Println(NumberUnderscoreSep("123"))
+	fmt.Println(NumberUnderscoreSep("1234.5678900"))
+	fmt.Println(NumberUnderscoreSep("1"))
+	// Output:
+	// 123
+	// 1_234.5678900
+	// 1
+}
+
 func ExampleNumberLimitedReader(){
 	io.Copy(os.Stdout,NumberLimitedReader(strings.NewReader("123v")))
 	// Output:

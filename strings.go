@@ -6,6 +6,15 @@ import "slices"
 import "unicode/utf8"
 
 
+// NumberSep adds a underscore between every 3 runes starting from the dp.
+func NumberUnderscoreSep(n string)string{
+	d,p,f:=strings.Cut(n,".")
+	sd:=SepEvery(3,d,"_")
+	if f {
+		return sd+"."+p
+	}
+	return sd
+}
 
 // NumSep adds a underscore between every 3 runes starting from the end.
 func NumSep(s string)string{
