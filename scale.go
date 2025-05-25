@@ -62,19 +62,19 @@ func Scale(s string) string{
 //	return s
 //}
 
-// shortens, without changing value, number containing a dp
+// removes trailing redundent, for scanning as a number, runes.
 func TrimNumber(s string) string{
 	return strings.TrimSuffix(strings.TrimRight(s,"0_"),".")
 }
 
-// looks for next smaller suffix
+// searches for the next smaller suffix.
 func SmallerSuffix(e int) (int,rune){
-	for {
+	for ;e>-27;e--{
 		if r,has:=SISuffices[e];has{
 			return e,r
 		}
-		e--
 	}
+	return e,0
 }
 
 // move second byte right by n
