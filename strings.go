@@ -59,7 +59,7 @@ func CutPrefixN(n int,s string) string{
 	return s
 }
 
-// NumberReader Reads an embedded io.Reader, closing when reaching anything not possible for a number.
+// NumberReader returns an io.Reader, Reading from a provided io.RuneScanner, closing it when reaching anything not possible for a number.
 func NumberLimitedReader(r io.RuneScanner) io.Reader{
 	return UntilReader(r,isNotNumber)
 }
@@ -68,7 +68,7 @@ func isNotNumber(r rune) bool{
 	return !strings.ContainsAny("0123456789.+-_",string(r))
 }
 
-// UntilReader Reads an embedded io.Reader, closing when a read rune casuses the provided function to return true.
+// UntilReader returns an io.Reader, Reading from a provided io.RuneScanner, closing it when a read rune causes the provided function to return true.
 func UntilReader(r io.RuneScanner, fn func(rune)bool) io.Reader{
 	pr,pw:=io.Pipe() // io.PipeReader
 	go func(){
