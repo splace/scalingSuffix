@@ -77,7 +77,14 @@ const (
 //	ElementaryCharge e 	1.602176634×10−19 
 //)
 
-//func Combine()
+//func Combine[Ds []D, D ~Dims](ds Ds)(cd Dims){
+//	for _,d:=range ds{
+//		cd.M+=d.M
+//		cd.L+=d.L
+//		cd.T+=d.T
+//	}
+//	return
+//}
 
 
 type Derived Dims

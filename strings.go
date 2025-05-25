@@ -6,7 +6,7 @@ import "slices"
 import "unicode/utf8"
 
 
-// NumberSep adds a underscore between every 3 runes starting from the dp.
+// NumberUnderscoreSep adds a underscore between every 3 runes starting from the dp.
 func NumberUnderscoreSep(n string)string{
 	d,p,f:=strings.Cut(n,".")
 	sd:=SepEvery(3,d,"_")
@@ -59,7 +59,7 @@ func CutPrefixN(n int,s string) string{
 	return s
 }
 
-// NumberReader returns an io.Reader, Reading from a provided io.RuneScanner, closing it when reaching anything not possible for a number.
+// NumberLimitedReader returns an io.Reader, Reading from a provided io.RuneScanner, closing it when reaching anything not possible for a number.
 func NumberLimitedReader(r io.RuneScanner) io.Reader{
 	return UntilReader(r,isNotNumber)
 }

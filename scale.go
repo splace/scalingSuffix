@@ -62,12 +62,12 @@ func Scale(s string) string{
 //	return s
 //}
 
-// removes trailing redundent, for scanning as a number, runes.
+// TrimNumber removes trailing redundent, for scanning as a number, runes.
 func TrimNumber(s string) string{
 	return strings.TrimSuffix(strings.TrimRight(s,"0_"),".")
 }
 
-// searches for the next smaller suffix.
+// SmallerSuffix searches for the next smaller suffix.
 func SmallerSuffix(e int) (int,rune){
 	for ;e>-27;e--{
 		if r,has:=SISuffices[e];has{

@@ -19,7 +19,7 @@ var (
 	FromNonEnglish = ReplaceString(reverse(NonEnglish...)...)
 )
 
-// multi-replaces bytes in a string, ASCII only.
+// ReplaceString multi-replaces bytes in a string, ASCII only.
 func ReplaceString(bps ...byteReplace) func(string)string{
 	return func(s string)string{
 		bs:=[]byte(s)
@@ -49,7 +49,7 @@ func reverse(bps ...byteReplace)(r []byteReplace){
 	return
 }
 
-// determines what byteReplace is needed for the system language
+// ToSystembyteReplace determines what byteReplace is needed for the system language
 func ToSystembyteReplace(countryCode byteReplace) func(string)string{
 	langenv, exists := os.LookupEnv("LANG")
 	if exists{
@@ -58,7 +58,7 @@ func ToSystembyteReplace(countryCode byteReplace) func(string)string{
 	return ReplaceString(Default)
 }
 
-// determines what byteReplace(s) needed for a language code
+// I18nbyteReplace determines what byteReplace(s) needed for a language code
 func I18nbyteReplace(countryCode [2]byte) func(string)string{
 	switch countryCode{
 	case byteReplace([]byte("en")): 
