@@ -27,8 +27,18 @@ func ExampleNumberUnderscoreSep(){
 
 func ExampleNumberLimitedReader(){
 	io.Copy(os.Stdout,NumberLimitedReader(strings.NewReader("123v")))
+	fmt.Println()
+	io.Copy(os.Stdout,NumberLimitedReader(strings.NewReader("123.123v")))
+	fmt.Println()
+	io.Copy(os.Stdout,NumberLimitedReader(strings.NewReader("-123v")))
+	fmt.Println()
+	io.Copy(os.Stdout,NumberLimitedReader(strings.NewReader("123_123v")))
+	fmt.Println()
 	// Output:
 	// 123
+	// 123.123
+	// -123
+	// 123_123
 }
 
 func ExampleShiftDP(){
@@ -40,6 +50,14 @@ func ExampleShiftDP(){
 	fmt.Println(string(ShiftDP([]byte("123123"),-2)))
 	fmt.Println(string(ShiftDP([]byte("123123"),-8)))
 	fmt.Println(string(ShiftDP([]byte("123.123"),-8)))
+	fmt.Println(string(ShiftDP([]byte("-123123"),2)))
+	fmt.Println(string(ShiftDP([]byte("-123.123"),2)))
+	fmt.Println(string(ShiftDP([]byte("-123.123"),4)))
+	fmt.Println(string(ShiftDP([]byte("-123.123"),-2)))
+	fmt.Println(string(ShiftDP([]byte("-123.123"),-3)))
+	fmt.Println(string(ShiftDP([]byte("-123123"),-2)))
+	fmt.Println(string(ShiftDP([]byte("-123123"),-8)))
+	fmt.Println(string(ShiftDP([]byte("-123.123"),-8)))
 	// Output:
 	// 12312300
 	// 12312.3
@@ -49,6 +67,14 @@ func ExampleShiftDP(){
 	// 1231.23
 	// 0.00123123
 	// 0.00000123123
+	// -12312300
+	// -12312.3
+	// -1231230
+	// -1.23123
+	// -0.123123
+	// -1231.23
+	// -0.00123123
+	// -0.00000123123
 }
 
 

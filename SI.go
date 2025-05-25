@@ -41,7 +41,15 @@ func (s *SI[N]) Scan(state fmt.ScanState,verb rune) (err error){
 	return
 }
 
+
 func ShiftDP(bs []byte, n int)[]byte{
+	if bs[0]=='-'{
+		return append([]byte{'-'},ShiftPosDP(bs[1:],n)...)
+	}
+	return ShiftPosDP(bs,n)
+}
+
+func ShiftPosDP(bs []byte, n int)[]byte{
 	if n<0 {
 		return ShiftDPLeft(bs,-n)
 	}	
