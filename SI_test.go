@@ -3,13 +3,13 @@ package scalingSuffix
 import "fmt"
 
 func ExampleNewSI(){
+	fmt.Println(NewSI(1_234_500))
+	fmt.Println(NewSI(-12345000))
 	fmt.Println(NewSI(int64(123_450_000_000_000)))
-	fmt.Println(NewSI(int64(1_234_500)))
-	fmt.Println(NewSI(int64(-12345000)))
 	// Output:
-	// 123.45T
 	// 1.2345M
 	// -12.345M	
+	// 123.45T
 }
 
 func ExampleSI_Scan(){

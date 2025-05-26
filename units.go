@@ -1,15 +1,15 @@
 package scalingSuffix
 
-import "golang.org/x/exp/constraints"
+//import "golang.org/x/exp/constraints"
 import "fmt"
 import "strconv"
 import "strings"
 import "slices"
 
 // SIUnits's are SI's with metric units suffixes added.
-type SIUnits[N constraints.Float | constraints.Integer] struct{SI[N];fmt.Stringer}
+type SIUnits[N Number] struct{SI[N];fmt.Stringer}
 
-func NewSIUnits[N constraints.Float | constraints.Integer](v N, f fmt.Stringer) SIUnits[N]{
+func NewSIUnits[N Number](v N, f fmt.Stringer) SIUnits[N]{
 	return SIUnits[N]{SI[N]{v},f}
 }
 

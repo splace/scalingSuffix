@@ -6,16 +6,21 @@ import "io"
 import "bytes"
 import "slices" // used to generically ooerate of single bytes, avoiding slight overhead of passing byte slices.
 
-// SI's are fmt.Stringer and fmt.Scanner where the i/o is scaled, from the embedded value, using powers of 10 and with the metric prefix appended.
-type SI[N constraints.Float | constraints.Integer] struct{value N}
+type Number interface{
+	constraints.Float | constraints.Integer
+}
 
-func NewSI[N constraints.Float | constraints.Integer](v N) SI[N]{
+// SI's are fmt.Stringer and fmt.Scanner where the i/o is scaled, from the embedded value, using powers of 10 and with the metric prefix appended.
+type SI[N Number] struct{value N}
+
+func NewSI[N Number](v N) SI[N]{
 	return SI[N]{v}
 }
 
 // returns the value with the maximum number of 1000's removed and replaced with the appropriate suffix added.
 // note: doesn't use small, less than 1000, value SI suffixes.
 func (i SI[N]) String()string{
+	// TODO floats, part solved in old version
 	return Scale(Thousands(fmt.Sprint(i.value)))
 }
 
@@ -32,7 +37,7 @@ func (s *SI[N]) Scan(state fmt.ScanState,verb rune) (err error){
 		}
 		sis=' '
 	}
-	if dps,isSI:=RSISuffices[sis];isSI{
+	if dps,isSI:=SufficesSI[sis];isSI{
 		_,err=fmt.Sscan(string(ShiftDP(bs,dps)),&s.value)
 		return
 	}

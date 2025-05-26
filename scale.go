@@ -38,7 +38,7 @@ var SISuffices = map[int]rune{
 	30:'Q',
 }
 
-var RSISuffices=Pivot(SISuffices)
+var SufficesSI=Pivot(SISuffices)
 
 func Scale(s string) string{
 	ss:=strings.Split(s,"_")
