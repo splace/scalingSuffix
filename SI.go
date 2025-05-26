@@ -4,9 +4,9 @@ import "golang.org/x/exp/constraints"
 import "fmt"
 import "io"
 import "bytes"
-import "slices"
+import "slices" // used to generically ooerate of single bytes, avoiding slight overhead of passing byte slices.
 
-// SI's are fmt.Stringer and fmt.Scanner where the value is scaled using powers of 10, with metric prefixes added.
+// SI's are fmt.Stringer and fmt.Scanner where the i/o is scaled, from the embedded value, using powers of 10 and with the metric prefix appended.
 type SI[N constraints.Float | constraints.Integer] struct{value N}
 
 func NewSI[N constraints.Float | constraints.Integer](v N) SI[N]{
@@ -60,15 +60,18 @@ func ShiftPosDP(bs []byte, n int)[]byte{
 func ShiftDPRight(bs []byte, n int)[]byte{
 	dpi:=slices.Index(bs,'.')
 	if dpi<0{
+		// no dp so just add zeros
 		return append(bs,bytes.Repeat([]byte{'0'},n)...)
 	}
 	p:=bs[dpi+1:]
 	if len(bs)-dpi-1<n{
+		// dp shifts off right end, add some zeros
 		bs= append(bs[:dpi],bs[dpi+1:]...)
 		return append(bs,bytes.Repeat([]byte{'0'},n-len(p))...)
 	}
+	// move dp inside existing
 	bs=append(bs[:dpi],bs[dpi+1:dpi+1+n]...)
-	bs=append(bs,[]byte{'.'}...)
+	bs=append(bs,"."...)
 	return append(bs,p[n:]...)
 }
 
@@ -77,42 +80,31 @@ func ShiftDPLeft(bs []byte, n int)[]byte{
 	dpi:=slices.Index(bs,'.')
 	if dpi<0{
 		if len(bs)>n{
+			// insert dp inside existing
 			bs:=append(bs,bs[len(bs)-1])
 			copy(bs[len(bs)-n:],bs[len(bs)-n-1:])
 			bs[len(bs)-n-1]='.'
 			return bs	
 		}
+		// prepend zeros and dp
 		bs= append(bytes.Repeat([]byte{'0'},n-len(bs)),bs...)
 		return append([]byte{'0','.'},bs...)
 	}
 	if dpi>=n{
+		// move left runes between dp and n; overwritting old dp
 		copy(bs[dpi-n+1:dpi+1],bs[dpi-n:])
 		bs[dpi-n]='.'
 		if dpi==n{
+			// when dp now at start need prepended zero
 			return append([]byte{'0'},bs...)
 		}
 		return bs
 	}
-	bs= slices.Delete(bs,dpi,dpi+1)
-	bs= append(slices.Repeat([]byte{'0'},n-dpi),bs...)
+	// dp needed is past LHS, remove dp
+	bs= append(bs[:dpi],bs[dpi+1:]...)
+	// prepend zeros
+	bs= append(bytes.Repeat([]byte{'0'},n-dpi),bs...)
+	// prepend "0."
 	return append([]byte{'0','.'},bs...)
 }
-
-//func (s *Int[N]) Scan(state fmt.ScanState,verb rune) (err error){
-//	bs,err:=io.ReadAll(NumberLimitedReader(state))
-//	if err!=nil{
-//		return
-//	}
-//	sis,_,err:=state.ReadRune()
-//	if err!=nil{
-//		return
-//	}
-//	d,p,f:=strings.Cut(string(bs),".")
-//	d+=strings.Repeat("0",RSISuffices[sis])
-//	if f{
-//		d+="."+p
-//	}
-//	_,err=fmt.Sscan(d,&s.Value)
-//	return
-//}
 

@@ -49,19 +49,6 @@ func Scale(s string) string{
 	return TrimNumber(strings.Join(ss[1:],""))+fmt.Sprintf("%c",SISuffices[(len(ss)-1)*3])
 }
 
-//func Remove(s string) string{
-//	for {
-//		if s[len(s)-4:]=="_000"{
-//			s=s[:len(s)-4]
-//			if len(s)>4 {
-//				continue
-//			}
-//		}
-//		break
-//	}
-//	return s
-//}
-
 // TrimNumber removes trailing redundent, for scanning as a number, runes.
 func TrimNumber(s string) string{
 	return strings.TrimSuffix(strings.TrimRight(s,"0_"),".")

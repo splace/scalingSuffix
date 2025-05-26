@@ -19,7 +19,7 @@ var (
 	FromNonEnglish = ReplaceString(reverse(NonEnglish...)...)
 )
 
-// ReplaceString multi-replaces bytes in a string, ASCII only.
+// ReplaceString replaces bytes in a string, each replace is a single byte, so no change in length. so for the string single byte chars, ASCII, only.
 func ReplaceString(bps ...byteReplace) func(string)string{
 	return func(s string)string{
 		bs:=[]byte(s)
