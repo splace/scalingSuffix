@@ -14,57 +14,43 @@ func NewSIUnits[N Number](v N, f fmt.Stringer) SIUnits[N]{
 }
 
 var (
-	Mass = Dims{1,0,0}
-	Length = Dims{0,1,0}
-	Time = Dims{0,0,1}
+	Mass = Dims{1,0,0,0,0,0,0}
+	Length = Dims{0,1,0,0,0,0,0}
+	Time = Dims{0,0,1,0,0,0,0}
+	Ampere  = Dims{0,0,0,1,0,0,0}
+	Kelvin  = Dims{0,0,0,0,1,0,0}
+	Mole 	 = Dims{0,0,0,0,0,1,0}
+	Candela = Dims{0,0,0,0,0,0,1}
 )
 
 var (
-	Energy = Derived{1,2,-2}
-	Force = Derived{1,1,-2}
-	Power = Derived{1,2,-3}
-	Pressure = Derived{1,-1,-2}
-	Frequency =	Derived{0,0,-1}
+	Energy = Derived{1,2,-2,0,0,0,0}
+	Force = Derived{1,1,-2,0,,0,0}
+	Power = Derived{1,2,-3,0,0,0,0}
+	Pressure = Derived{1,-1,-2,0,0,0,0}
+	Frequency =	Derived{0,0,-1,0,0,0,0}
+	Coulomb = Derived{0,0,1,1,0,0,0} // C 	electric charge 	s⋅A 	
+	Volt= Derived{1,2,-3,-1,0,0,0} // 	V 	electric potential difference[a] 	kg⋅m2⋅s−3⋅A−1 	W/A = J/C
+	Farad= Derived{-1,-2,4,2,0,0,0} // F 	capacitance 	kg−1⋅m−2⋅s4⋅A2 	C/V = C2/J
+	Ohm= Derived{1,2,-3,-2,0,0,0} // Ω 	electrical resistance 	kg⋅m2⋅s−3⋅A−2 	V/A = J⋅s/C2
+	Siemens= Derived{-1,-2,3,2,0,0,0} // S 	electrical conductance 	kg−1⋅m−2⋅s3⋅A2 	Ω−1
+	Weber= Derived{1,2,-2,-1,0,0,0} // 	Wb 	magnetic flux 	kg⋅m2⋅s−2⋅A−1 	V⋅s
+	Tesla= Derived{1,0,-2,-1,0,0,0} // T 	magnetic flux density 	kg⋅s−2⋅A−1 	Wb/m2
+	Henry= Derived{1,2,-2,-2,0,0,0} // H 	inductance 	kg⋅m2⋅s−2⋅A−2 	Wb/A
+//	Celsius= Derived{0,0,0,0,1,0,0} // °C 	Celsius temperature 	K 	273.15
+	Becquerel= Derived{0,0,-1,0,0,0,0} // Bq 	activity referred to a radionuclide 	s−1 	
+	Ggray= Derived{0,2,-2,0,0,0,0} // Gy 	absorbed dose, kerma 	m2⋅s−2 	J/kg
+	Sievert= Derived{0,2,-2,0,0,0,0} // Sv 	dose equivalent 	m2⋅s−2
 )
 
-type ExtendedDim uint8
+type Sr Derived
 
-const (
-	ampere 	ExtendedDim = iota // A 	I
-	kelvin   // K 	
-	mole 	  // mol 	
-	candela  // cd
+// light
+var (
+	Lumen= Sr{0,0,0,0,0,0,1} // lm 	luminous flux 	cd⋅sr[nc 2] 	cd⋅sr
+	Lux= Sr{0,-2,0,0,0,0,1} // lx 	illuminance 	cd⋅sr⋅m−2[nc 2] 	lm/m2
 )
 
-//// electrical 
-//const (
-//	coulomb 	C 	electric charge 	s⋅A 	
-//	volt 	V 	electric potential difference[a] 	kg⋅m2⋅s−3⋅A−1 	W/A = J/C
-//	farad 	F 	capacitance 	kg−1⋅m−2⋅s4⋅A2 	C/V = C2/J
-//	ohm 	Ω 	electrical resistance 	kg⋅m2⋅s−3⋅A−2 	V/A = J⋅s/C2
-//	siemens 	S 	electrical conductance 	kg−1⋅m−2⋅s3⋅A2 	Ω−1
-//	weber 	Wb 	magnetic flux 	kg⋅m2⋅s−2⋅A−1 	V⋅s
-//	tesla 	T 	magnetic flux density 	kg⋅s−2⋅A−1 	Wb/m2
-//	henry	H 	inductance 	kg⋅m2⋅s−2⋅A−2 	Wb/A
-//)
-
-//// temp
-//const (
-//	degree Celsius 	°C 	Celsius temperature 	K 	273.15
-//)
-
-////light
-//const (
-//	lumen 	lm 	luminous flux 	cd⋅sr[nc 2] 	cd⋅sr
-//	lux 	lx 	illuminance 	cd⋅sr⋅m−2[nc 2] 	lm/m2
-//)
-
-//// nuclear
-//const (
-//	becquerel 	Bq 	activity referred to a radionuclide 	s−1 	
-//	gray 	Gy 	absorbed dose, kerma 	m2⋅s−2 	J/kg
-//	sievert 	Sv 	dose equivalent 	m2⋅s−2
-//)
 
 //// constsnats
 //const (
@@ -114,6 +100,22 @@ func (d Derived) String()string{
 		return "Pa"
 	case Frequency:
 		return "Hz"
+	case Coulomb:
+		return "C"
+	case Volt:
+		return "V"
+	case Farad:
+		return "F"
+	case Ohm:
+		return "Ω"
+	case Siemens:
+		return "S"
+	case Weber:
+		return "Wb"
+	case Tesla:
+		return "T"
+	case Henry:
+		return "H"
 	default:
 		return Dims(d).String()
 	}	
@@ -130,7 +132,7 @@ func DimString(d int8, s string)(_ string){
 	}
 }
 
-type Dims struct{M,L,T int8}
+type Dims struct{M,L,T,a,k,m,c int8}
 
 func DimsCombine(ds ...Dims)(cd Dims){
 	for _,d:=range ds{
